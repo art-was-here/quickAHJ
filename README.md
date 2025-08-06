@@ -21,24 +21,7 @@ A Chrome extension for quickly searching Authority Having Jurisdiction (AHJ) inf
    cd quick-ahj
    ```
 
-2. **Create Icon Files** (Required for Chrome)
-   
-   Since Chrome requires PNG icons, you need to convert the provided SVG to PNG format:
-   
-   - Convert `icons/icon.svg` to PNG files:
-     - `icons/icon16.png` (16x16 pixels)
-     - `icons/icon48.png` (48x48 pixels) 
-     - `icons/icon128.png` (128x128 pixels)
-   
-   You can use online converters or tools like ImageMagick:
-   ```bash
-   # If you have ImageMagick installed
-   convert icons/icon.svg -resize 16x16 icons/icon16.png
-   convert icons/icon.svg -resize 48x48 icons/icon48.png
-   convert icons/icon.svg -resize 128x128 icons/icon128.png
-   ```
-
-3. **Load in Chrome**
+2. **Load in Chrome**
    - Open Chrome and go to `chrome://extensions/`
    - Enable "Developer mode" (toggle in top right)
    - Click "Load unpacked"
@@ -157,10 +140,11 @@ quick-ahj/
 ├── settings.js            # Settings functionality
 ├── styles.css             # Theme-aware styles
 ├── icons/                 # Extension icons
-│   ├── icon.svg          # Source SVG icon
-│   ├── icon16.png        # 16x16 icon (required)
-│   ├── icon48.png        # 48x48 icon (required)
-│   └── icon128.png       # 128x128 icon (required)
+│   ├── icon16.png        # 16x16 icon
+│   ├── icon32.png        # 32x32 icon
+│   ├── icon48.png        # 48x48 icon
+│   └── icon128.png       # 128x128 icon
+├── LICENSE               # MIT License
 └── README.md             # This file
 ```
 
