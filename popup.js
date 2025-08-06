@@ -264,6 +264,8 @@ class QuickAHJSearch {
         const county = addressParts.county || 'Unknown County';
         const zipcode = addressParts.postcode || 'Unknown';
 
+
+
         return {
             address: {
                 full_address: address.display_name,
@@ -328,156 +330,173 @@ class QuickAHJSearch {
     displayResults(data) {
         const resultsContent = document.getElementById('results-content');
         
-        resultsContent.innerHTML = `
-            <div class="result-section">
-                <h3>📍 Address Information</h3>
-                <div class="result-item">
-                    <span class="result-label">Address:</span>
-                    <span class="result-value">${data.address.full_address}</span>
-                </div>
-                <div class="result-item">
-                    <span class="result-label">City:</span>
-                    <span class="result-value">${data.address.city}</span>
-                </div>
-                <div class="result-item">
-                    <span class="result-label">County:</span>
-                    <span class="result-value">${data.address.county}</span>
-                </div>
-                <div class="result-item">
-                    <span class="result-label">State:</span>
-                    <span class="result-value">${data.address.state}</span>
-                </div>
-                <div class="result-item">
-                    <span class="result-label">ZIP Code:</span>
-                    <span class="result-value">${data.address.zipcode}</span>
-                </div>
-            </div>
+        if (!resultsContent) {
+            console.error('Results content element not found');
+            this.showError('Interface error: Could not display results');
+            return;
+        }
 
-            <div class="result-section">
-                <h3>🏛️ Authority Having Jurisdiction (AHJ)</h3>
-                <div class="result-item">
-                    <span class="result-label">Jurisdiction:</span>
-                    <span class="result-value">${data.ahj_info.jurisdiction_name}</span>
-                </div>
-                <div class="result-item">
-                    <span class="result-label">Type:</span>
-                    <span class="result-value">${data.ahj_info.jurisdiction_type}</span>
-                </div>
-                <div class="result-item">
-                    <span class="result-label">Authority:</span>
-                    <span class="result-value">${data.ahj_info.authority_type}</span>
-                </div>
-                
-                <div class="contact-info">
-                    <h4>📞 Contact Information</h4>
-                    <div class="result-item">
-                        <span class="result-label">Phone:</span>
-                        <span class="result-value">${data.ahj_info.contact_info.phone}</span>
-                    </div>
-                    <div class="result-item">
-                        <span class="result-label">Email:</span>
-                        <span class="result-value">${data.ahj_info.contact_info.email}</span>
-                    </div>
-                    <div class="result-item">
-                        <span class="result-label">Website:</span>
-                        <span class="result-value"><a href="${data.ahj_info.contact_info.website}" target="_blank">${data.ahj_info.contact_info.website}</a></span>
-                    </div>
+        if (!data) {
+            console.error('No data to display');
+            this.showError('No AHJ data received');
+            return;
+        }
+
+        try {
+            resultsContent.innerHTML = `
+                <div class="result-section">
+                    <h3>📍 Address Information</h3>
                     <div class="result-item">
                         <span class="result-label">Address:</span>
-                        <span class="result-value">${data.ahj_info.contact_info.address}</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="result-section">
-                <h3>📋 Permit Requirements</h3>
-                <div class="result-item">
-                    <span class="result-label">Electrical Permit:</span>
-                    <span class="result-value">${data.ahj_info.permit_requirements.electrical_permit_required ? 'Required' : 'Not Required'}</span>
-                </div>
-                <div class="result-item">
-                    <span class="result-label">Building Permit:</span>
-                    <span class="result-value">${data.ahj_info.permit_requirements.building_permit_required ? 'Required' : 'Not Required'}</span>
-                </div>
-                <div class="result-item">
-                    <span class="result-label">Fire Permit:</span>
-                    <span class="result-value">${data.ahj_info.permit_requirements.fire_permit_required ? 'Required' : 'Not Required'}</span>
-                </div>
-                <div class="result-item">
-                    <span class="result-label">Review Time:</span>
-                    <span class="result-value">${data.ahj_info.permit_requirements.estimated_review_time}</span>
-                </div>
-                <div class="result-item">
-                    <span class="result-label">Permit Fees:</span>
-                    <span class="result-value">${data.ahj_info.permit_requirements.permit_fees}</span>
-                </div>
-            </div>
-
-            <div class="result-section">
-                <h3>🔍 Inspection Requirements</h3>
-                <div class="result-item">
-                    <span class="result-label">Rough Inspection:</span>
-                    <span class="result-value">${data.ahj_info.inspection_requirements.rough_inspection ? 'Required' : 'Not Required'}</span>
-                </div>
-                <div class="result-item">
-                    <span class="result-label">Final Inspection:</span>
-                    <span class="result-value">${data.ahj_info.inspection_requirements.final_inspection ? 'Required' : 'Not Required'}</span>
-                </div>
-                <div class="result-item">
-                    <span class="result-label">Utility Interconnection:</span>
-                    <span class="result-value">${data.ahj_info.inspection_requirements.utility_interconnection ? 'Required' : 'Not Required'}</span>
-                </div>
-                <div class="result-item">
-                    <span class="result-label">Special Requirements:</span>
-                    <span class="result-value">${data.ahj_info.inspection_requirements.special_requirements}</span>
-                </div>
-            </div>
-
-            <div class="result-section">
-                <h3>⚡ Utility Information</h3>
-                <div class="result-item">
-                    <span class="result-label">Utility Company:</span>
-                    <span class="result-value">${data.utility_info.utility_name}</span>
-                </div>
-                <div class="result-item">
-                    <span class="result-label">Interconnection:</span>
-                    <span class="result-value">${data.utility_info.interconnection_process}</span>
-                </div>
-                <div class="result-item">
-                    <span class="result-label">Timeline:</span>
-                    <span class="result-value">${data.utility_info.estimated_timeline}</span>
-                </div>
-                
-                <div class="contact-info">
-                    <h4>📞 Utility Contact</h4>
-                    <div class="result-item">
-                        <span class="result-label">Phone:</span>
-                        <span class="result-value">${data.utility_info.contact.phone}</span>
+                        <span class="result-value">${data.address.full_address}</span>
                     </div>
                     <div class="result-item">
-                        <span class="result-label">Email:</span>
-                        <span class="result-value">${data.utility_info.contact.email}</span>
+                        <span class="result-label">City:</span>
+                        <span class="result-value">${data.address.city}</span>
                     </div>
                     <div class="result-item">
-                        <span class="result-label">Website:</span>
-                        <span class="result-value"><a href="${data.utility_info.contact.website}" target="_blank">${data.utility_info.contact.website}</a></span>
+                        <span class="result-label">County:</span>
+                        <span class="result-value">${data.address.county}</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">State:</span>
+                        <span class="result-value">${data.address.state}</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">ZIP Code:</span>
+                        <span class="result-value">${data.address.zipcode}</span>
                     </div>
                 </div>
-            </div>
 
-            <div class="result-section">
-                <h3>📝 Additional Notes</h3>
-                ${data.additional_notes.map(note => `
+                <div class="result-section">
+                    <h3>🏛️ Authority Having Jurisdiction (AHJ)</h3>
                     <div class="result-item">
-                        <span class="result-value">• ${note}</span>
+                        <span class="result-label">Jurisdiction:</span>
+                        <span class="result-value">${data.ahj_info.jurisdiction_name}</span>
                     </div>
-                `).join('')}
-                <div class="result-item">
-                    <span class="result-label">Last Updated:</span>
-                    <span class="result-value">${data.last_updated}</span>
+                    <div class="result-item">
+                        <span class="result-label">Type:</span>
+                        <span class="result-value">${data.ahj_info.jurisdiction_type}</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Authority:</span>
+                        <span class="result-value">${data.ahj_info.authority_type}</span>
+                    </div>
+                    
+                    <div class="contact-info">
+                        <h4>📞 Contact Information</h4>
+                        <div class="result-item">
+                            <span class="result-label">Phone:</span>
+                            <span class="result-value">${data.ahj_info.contact_info.phone}</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-label">Email:</span>
+                            <span class="result-value">${data.ahj_info.contact_info.email}</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-label">Website:</span>
+                            <span class="result-value"><a href="${data.ahj_info.contact_info.website}" target="_blank">${data.ahj_info.contact_info.website}</a></span>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-label">Address:</span>
+                            <span class="result-value">${data.ahj_info.contact_info.address}</span>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        `;
+
+                <div class="result-section">
+                    <h3>📋 Permit Requirements</h3>
+                    <div class="result-item">
+                        <span class="result-label">Electrical Permit:</span>
+                        <span class="result-value">${data.ahj_info.permit_requirements.electrical_permit_required ? 'Required' : 'Not Required'}</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Building Permit:</span>
+                        <span class="result-value">${data.ahj_info.permit_requirements.building_permit_required ? 'Required' : 'Not Required'}</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Fire Permit:</span>
+                        <span class="result-value">${data.ahj_info.permit_requirements.fire_permit_required ? 'Required' : 'Not Required'}</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Review Time:</span>
+                        <span class="result-value">${data.ahj_info.permit_requirements.estimated_review_time}</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Permit Fees:</span>
+                        <span class="result-value">${data.ahj_info.permit_requirements.permit_fees}</span>
+                    </div>
+                </div>
+
+                <div class="result-section">
+                    <h3>🔍 Inspection Requirements</h3>
+                    <div class="result-item">
+                        <span class="result-label">Rough Inspection:</span>
+                        <span class="result-value">${data.ahj_info.inspection_requirements.rough_inspection ? 'Required' : 'Not Required'}</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Final Inspection:</span>
+                        <span class="result-value">${data.ahj_info.inspection_requirements.final_inspection ? 'Required' : 'Not Required'}</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Utility Interconnection:</span>
+                        <span class="result-value">${data.ahj_info.inspection_requirements.utility_interconnection ? 'Required' : 'Not Required'}</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Special Requirements:</span>
+                        <span class="result-value">${data.ahj_info.inspection_requirements.special_requirements}</span>
+                    </div>
+                </div>
+
+                <div class="result-section">
+                    <h3>⚡ Utility Information</h3>
+                    <div class="result-item">
+                        <span class="result-label">Utility Company:</span>
+                        <span class="result-value">${data.utility_info.utility_name}</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Interconnection:</span>
+                        <span class="result-value">${data.utility_info.interconnection_process}</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Timeline:</span>
+                        <span class="result-value">${data.utility_info.estimated_timeline}</span>
+                    </div>
+                    
+                    <div class="contact-info">
+                        <h4>📞 Utility Contact</h4>
+                        <div class="result-item">
+                            <span class="result-label">Phone:</span>
+                            <span class="result-value">${data.utility_info.contact.phone}</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-label">Email:</span>
+                            <span class="result-value">${data.utility_info.contact.email}</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-label">Website:</span>
+                            <span class="result-value"><a href="${data.utility_info.contact.website}" target="_blank">${data.utility_info.contact.website}</a></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="result-section">
+                    <h3>📝 Additional Notes</h3>
+                    ${data.additional_notes.map(note => `
+                        <div class="result-item">
+                            <span class="result-value">• ${note}</span>
+                        </div>
+                    `).join('')}
+                    <div class="result-item">
+                        <span class="result-label">Last Updated:</span>
+                        <span class="result-value">${data.last_updated}</span>
+                    </div>
+                </div>
+            `;
+        } catch (error) {
+            console.error('Error setting results HTML:', error);
+            resultsContent.innerHTML = '<div class="result-section"><h3>Error displaying results</h3><p>Please check the console for details.</p></div>';
+        }
 
         this.showView('results');
     }
@@ -491,6 +510,8 @@ class QuickAHJSearch {
         const targetView = document.getElementById(`${viewName}-view`);
         if (targetView) {
             targetView.classList.add('active');
+        } else {
+            console.error(`Could not find view: ${viewName}-view`);
         }
     }
 
