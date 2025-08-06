@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick AHJ Search - Settings</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container settings-container">
+        <h1>Settings</h1>
+        
+        <div class="settings-section">
+            <label for="api-key">AHJ Registry API Key:</label>
+            <input type="password" id="api-key" placeholder="Enter your API key (optional)">
+            <p class="help-text">
+                If you have your own AHJ Registry API key, enter it here. 
+                If left blank, a default key will be used with rate limitations.
+            </p>
+        </div>
+
+        <div class="settings-section">
+            <h3>API Information</h3>
+            <p>This extension uses the AHJ Registry API from:</p>
+            <a href="https://ahjregistry.myorangebutton.com/#/APIDoc" target="_blank">
+                https://ahjregistry.myorangebutton.com/#/APIDoc
+            </a>
+        </div>
+
+        <div class="buttons">
+            <button id="save-btn" class="btn primary">Save Settings</button>
+            <button id="cancel-btn" class="btn secondary">Cancel</button>
+        </div>
+
+        <div id="save-message" class="save-message hidden"></div>
+    </div>
+
+    <script src="settings.js"></script>
+</body>
+</html> 
