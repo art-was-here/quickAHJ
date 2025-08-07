@@ -27,11 +27,15 @@ class SettingsManager {
 
     async loadSettings() {
         try {
-            const result = await chrome.storage.sync.get(['apiKey']);
-            const apiKeyInput = document.getElementById('api-key');
+            const result = await chrome.storage.sync.get(['upcodesApiKey', 'shovelsApiKey']);
+            const upcodesApiKeyInput = document.getElementById('api-key');
+            const shovelsApiKeyInput = document.getElementById('shovels-api-key');
             
-            if (result.apiKey) {
-                apiKeyInput.value = result.apiKey;
+            if (result.upcodesApiKey) {
+                upcodesApiKeyInput.value = result.upcodesApiKey;
+            }
+            if (result.shovelsApiKey) {
+                shovelsApiKeyInput.value = result.shovelsApiKey;
             }
         } catch (error) {
             console.error('Error loading settings:', error);
@@ -40,13 +44,16 @@ class SettingsManager {
     }
 
     async saveSettings() {
-        const apiKeyInput = document.getElementById('api-key');
-        const apiKey = apiKeyInput.value.trim();
+        const upcodesApiKeyInput = document.getElementById('api-key');
+        const shovelsApiKeyInput = document.getElementById('shovels-api-key');
+        const upcodesApiKey = upcodesApiKeyInput.value.trim();
+        const shovelsApiKey = shovelsApiKeyInput.value.trim();
 
         try {
             // Save to Chrome storage
             await chrome.storage.sync.set({
-                apiKey: apiKey
+                upcodesApiKey: upcodesApiKey,
+                shovelsApiKey: shovelsApiKey
             });
 
             this.showMessage('Settings saved successfully!', 'success');

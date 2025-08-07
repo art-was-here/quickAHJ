@@ -3,20 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quick AHJ Search</title>
+    <title>QuickAHJ</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
         <div id="search-view" class="view active">
-            <h1>Quick AHJ Search</h1>
+            <h1>QuickAHJ</h1>
             <div class="search-container">
                 <input type="text" id="address-input" placeholder="Enter address..." autocomplete="off">
                 <div id="suggestions" class="suggestions-container"></div>
             </div>
             <div class="buttons">
-                <button id="settings-btn" class="btn secondary">Settings</button>
-                <button id="submit-btn" class="btn primary">Submit</button>
+                <button id="settings-btn" class="btn secondary compact">Settings</button>
+                <button id="submit-btn" class="btn primary compact">Submit</button>
+            </div>
+            <div id="recent-searches" class="recent-searches">
+                <h3>Recent Searches</h3>
+                <div id="recent-searches-list" class="recent-searches-list"></div>
             </div>
             <div id="loading" class="loading hidden">
                 <div class="spinner"></div>
@@ -27,7 +31,7 @@
         <div id="results-view" class="view">
             <h1>AHJ Results</h1>
             <div id="results-content"></div>
-            <button id="clear-btn" class="btn secondary">Clear</button>
+            <button id="clear-btn" class="btn secondary compact">Clear</button>
         </div>
 
         <div id="error-message" class="error-message hidden"></div>

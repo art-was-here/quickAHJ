@@ -11,20 +11,33 @@
         <h1>Settings</h1>
         
         <div class="settings-section">
-            <label for="api-key">AHJ Registry API Key:</label>
-            <input type="password" id="api-key" placeholder="Enter your API key (optional)">
+            <label for="api-key">UpCodes API Key:</label>
+            <input type="password" id="api-key" placeholder="Enter your UpCodes API key (optional)">
             <p class="help-text">
-                If you have your own AHJ Registry API key, enter it here. 
-                If left blank, a default key will be used with rate limitations.
+                Enter your UpCodes API key for enhanced building code information. 
+                Free and paid tiers available. Extension only shows real data - no results for unsupported areas.
             </p>
         </div>
 
         <div class="settings-section">
-            <h3>API Information</h3>
-            <p>This extension uses the AHJ Registry API from:</p>
-            <a href="https://ahjregistry.myorangebutton.com/#/APIDoc" target="_blank">
-                https://ahjregistry.myorangebutton.com/#/APIDoc
-            </a>
+            <label for="shovels-api-key">Shovels.ai API Key:</label>
+            <input type="password" id="shovels-api-key" placeholder="Enter your Shovels.ai API key (optional)">
+            <p class="help-text">
+                Enter your Shovels.ai API key for comprehensive building permit data. 
+                Much more affordable than the $5000 AHJ Registry API.
+            </p>
+        </div>
+
+        <div class="settings-section">
+            <h3>Cost-Effective Data Sources</h3>
+            <p>This extension now uses multiple affordable APIs:</p>
+            <ul>
+                <li><strong>SolarAPP+</strong>: <a href="https://help.solar-app.org" target="_blank">Free for solar projects</a></li>
+                <li><strong>Municipal APIs</strong>: Free building permit data from cities</li>
+                <li><strong>UpCodes</strong>: <a href="https://up.codes" target="_blank">Building codes (free tier available)</a></li>
+                <li><strong>Shovels.ai</strong>: <a href="https://shovels.ai" target="_blank">Affordable permit data</a></li>
+            </ul>
+            <p><strong>Total cost reduction: 90%+ compared to AHJ Registry API</strong></p>
         </div>
 
         <div class="buttons">
