@@ -508,4 +508,12 @@ h3 {
   font-size: 0.8rem;
   font-style: italic;
   padding: 10px;
+}
+
+/* Results buttons */
+.results-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+  justify-content: center;
 } 
