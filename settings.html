@@ -3,46 +3,310 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quick AHJ Search - Settings</title>
+    <title>QuickAHJ - Settings</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container settings-container">
         <h1>Settings</h1>
         
+        <!-- Theme Settings -->
         <div class="settings-section">
-            <label for="api-key">UpCodes API Key:</label>
-            <input type="password" id="api-key" placeholder="Enter your UpCodes API key (optional)">
-            <p class="help-text">
-                Enter your UpCodes API key for enhanced building code information. 
-                Free and paid tiers available. Extension only shows real data - no results for unsupported areas.
-            </p>
+            <h3>🎨 Theme & Display</h3>
+            <div class="setting-group">
+                <label for="theme-override">Theme Override:</label>
+                <select id="theme-override">
+                    <option value="system">Follow System Theme</option>
+                    <option value="light">Always Light Mode</option>
+                    <option value="dark">Always Dark Mode</option>
+                </select>
+                <p class="help-text">Override the automatic theme detection to force light or dark mode.</p>
+            </div>
+            
+            <div class="setting-group">
+                <label for="view-mode">View Mode:</label>
+                <select id="view-mode">
+                    <option value="detailed">Detailed View</option>
+                    <option value="compact">Compact View</option>
+                </select>
+                <p class="help-text">Choose between detailed information display or compact summary view.</p>
+            </div>
+            
+            <div class="setting-group">
+                <label for="default-units">Default Units:</label>
+                <select id="default-units">
+                    <option value="imperial">Imperial (feet, miles)</option>
+                    <option value="metric">Metric (meters, kilometers)</option>
+                </select>
+                <p class="help-text">Choose measurement units for distances and dimensions.</p>
+            </div>
         </div>
 
+        <!-- Data Sources Settings -->
         <div class="settings-section">
-            <label for="shovels-api-key">Shovels.ai API Key:</label>
-            <input type="password" id="shovels-api-key" placeholder="Enter your Shovels.ai API key (optional)">
-            <p class="help-text">
-                Enter your Shovels.ai API key for comprehensive building permit data. 
-                Much more affordable than the $5000 AHJ Registry API.
-            </p>
+            <h3>🔗 Data Sources Priority</h3>
+            <div class="setting-group">
+                <label>Data Source Priority Order:</label>
+                <div class="priority-list" id="data-sources-priority">
+                    <div class="priority-item" data-source="solarapp">
+                        <span class="drag-handle">⋮⋮</span>
+                        <span class="source-name">SolarAPP+ (Free)</span>
+                        <input type="checkbox" class="source-enabled" checked>
+                    </div>
+                    <div class="priority-item" data-source="municipal">
+                        <span class="drag-handle">⋮⋮</span>
+                        <span class="source-name">Municipal Open Data (Free)</span>
+                        <input type="checkbox" class="source-enabled" checked>
+                    </div>
+                    <div class="priority-item" data-source="upcodes">
+                        <span class="drag-handle">⋮⋮</span>
+                        <span class="source-name">UpCodes API</span>
+                        <input type="checkbox" class="source-enabled" checked>
+                    </div>
+                    <div class="priority-item" data-source="shovels">
+                        <span class="drag-handle">⋮⋮</span>
+                        <span class="source-name">Shovels.ai API</span>
+                        <input type="checkbox" class="source-enabled" checked>
+                    </div>
+                </div>
+                <p class="help-text">Drag to reorder data source priority. Uncheck to disable a source.</p>
+            </div>
+            
+            <div class="setting-group">
+                <label>
+                    <input type="checkbox" id="offline-mode"> Enable Offline Mode
+                </label>
+                <p class="help-text">Cache search results for offline viewing. Uses browser storage.</p>
+            </div>
         </div>
 
+        <!-- Result Display Settings -->
         <div class="settings-section">
-            <h3>Cost-Effective Data Sources</h3>
-            <p>This extension now uses multiple affordable APIs:</p>
-            <ul>
-                <li><strong>SolarAPP+</strong>: <a href="https://help.solar-app.org" target="_blank">Free for solar projects</a></li>
-                <li><strong>Municipal APIs</strong>: Free building permit data from cities</li>
-                <li><strong>UpCodes</strong>: <a href="https://up.codes" target="_blank">Building codes (free tier available)</a></li>
-                <li><strong>Shovels.ai</strong>: <a href="https://shovels.ai" target="_blank">Affordable permit data</a></li>
-            </ul>
-            <p><strong>Total cost reduction: 90%+ compared to AHJ Registry API</strong></p>
+            <h3>📋 Result Display</h3>
+            <div class="setting-group">
+                <label>Visible Result Sections:</label>
+                <div class="checkbox-group">
+                    <label><input type="checkbox" id="show-address" checked> Address Information</label>
+                    <label><input type="checkbox" id="show-ahj" checked> Authority Having Jurisdiction</label>
+                    <label><input type="checkbox" id="show-permits" checked> Permit Requirements</label>
+                    <label><input type="checkbox" id="show-inspections" checked> Inspection Requirements</label>
+                    <label><input type="checkbox" id="show-utilities" checked> Utility Information</label>
+                    <label><input type="checkbox" id="show-codes" checked> Building Codes & Standards</label>
+                </div>
+                <p class="help-text">Choose which information sections to display in search results.</p>
+            </div>
+            
+            <div class="setting-group">
+                <label>Auto-expand Sections:</label>
+                <div class="checkbox-group">
+                    <label><input type="checkbox" id="expand-address"> Address Information</label>
+                    <label><input type="checkbox" id="expand-ahj" checked> Authority Having Jurisdiction</label>
+                    <label><input type="checkbox" id="expand-permits" checked> Permit Requirements</label>
+                    <label><input type="checkbox" id="expand-inspections"> Inspection Requirements</label>
+                    <label><input type="checkbox" id="expand-utilities"> Utility Information</label>
+                    <label><input type="checkbox" id="expand-codes"> Building Codes & Standards</label>
+                </div>
+                <p class="help-text">Choose which sections are expanded by default when viewing results.</p>
+            </div>
+        </div>
+
+        <!-- Search Settings -->
+        <div class="settings-section">
+            <h3>🔍 Search Settings</h3>
+            <div class="setting-group">
+                <label for="search-radius">Search Radius (miles):</label>
+                <input type="number" id="search-radius" min="1" max="50" value="10">
+                <p class="help-text">Default radius for searching nearby jurisdictions.</p>
+            </div>
+            
+            <div class="setting-group">
+                <label for="recent-searches-limit">Recent Searches Limit:</label>
+                <input type="number" id="recent-searches-limit" min="5" max="100" value="10">
+                <p class="help-text">Maximum number of recent searches to keep in history.</p>
+            </div>
+        </div>
+
+        <!-- Export Settings -->
+        <div class="settings-section">
+            <h3>📤 Export Settings</h3>
+            <div class="setting-group">
+                <label for="export-format">Default Export Format:</label>
+                <select id="export-format">
+                    <option value="txt">Text (.txt)</option>
+                    <option value="json">JSON (.json)</option>
+                    <option value="csv">CSV (.csv)</option>
+                </select>
+                <p class="help-text">Choose the default format for downloaded results.</p>
+            </div>
+            
+            <div class="setting-group">
+                <label>Export Template Fields:</label>
+                <div class="checkbox-group">
+                    <label><input type="checkbox" id="export-address" checked> Address Information</label>
+                    <label><input type="checkbox" id="export-ahj" checked> AHJ Contact Details</label>
+                    <label><input type="checkbox" id="export-permits" checked> Permit Requirements</label>
+                    <label><input type="checkbox" id="export-inspections" checked> Inspection Requirements</label>
+                    <label><input type="checkbox" id="export-utilities" checked> Utility Information</label>
+                    <label><input type="checkbox" id="export-codes" checked> Building Codes</label>
+                    <label><input type="checkbox" id="export-timestamp" checked> Search Timestamp</label>
+                </div>
+                <p class="help-text">Choose which fields to include in exported data.</p>
+            </div>
+        </div>
+
+        <!-- Professional Settings -->
+        <div class="settings-section">
+            <h3>🏢 Professional Settings</h3>
+            <div class="setting-group">
+                <label for="company-name">Company Name:</label>
+                <input type="text" id="company-name" placeholder="Your Company Name">
+            </div>
+            
+            <div class="setting-group">
+                <label for="company-address">Company Address:</label>
+                <textarea id="company-address" placeholder="Company address for reports" rows="3"></textarea>
+            </div>
+            
+            <div class="setting-group">
+                <label for="company-contact">Contact Information:</label>
+                <input type="text" id="company-contact" placeholder="Phone, email, website">
+            </div>
+            
+            <div class="setting-group">
+                <label for="default-project-type">Default Project Type:</label>
+                <select id="default-project-type">
+                    <option value="solar">Solar Installation</option>
+                    <option value="electrical">Electrical Work</option>
+                    <option value="general">General Construction</option>
+                    <option value="residential">Residential</option>
+                    <option value="commercial">Commercial</option>
+                </select>
+            </div>
+            
+            <div class="setting-group">
+                <label for="custom-notes">Default Custom Notes:</label>
+                <textarea id="custom-notes" placeholder="Default notes to include with searches" rows="2"></textarea>
+                <p class="help-text">These notes will be added to all search results and exports.</p>
+            </div>
+        </div>
+
+        <!-- Technical Settings -->
+        <div class="settings-section">
+            <h3>⚙️ Technical Settings</h3>
+            <div class="setting-group">
+                <label for="request-timeout">Request Timeout (seconds):</label>
+                <input type="number" id="request-timeout" min="5" max="60" value="10">
+                <p class="help-text">How long to wait for API responses before timing out.</p>
+            </div>
+            
+            <div class="setting-group">
+                <label for="retry-attempts">Retry Attempts:</label>
+                <input type="number" id="retry-attempts" min="1" max="10" value="3">
+                <p class="help-text">Number of times to retry failed API requests.</p>
+            </div>
+            
+            <div class="setting-group">
+                <label>
+                    <input type="checkbox" id="debug-mode"> Enable Debug Mode
+                </label>
+                <p class="help-text">Show detailed API responses and error information for troubleshooting.</p>
+            </div>
+        </div>
+
+        <!-- Integration Settings -->
+        <div class="settings-section">
+            <h3>🔗 Integrations</h3>
+            <div class="setting-group">
+                <label>
+                    <input type="checkbox" id="calendar-integration"> Enable Calendar Integration
+                </label>
+                <p class="help-text">Export permit timelines to calendar applications (.ics format).</p>
+            </div>
+            
+            <div class="setting-group">
+                <label for="crm-system">CRM System:</label>
+                <select id="crm-system">
+                    <option value="none">None</option>
+                    <option value="salesforce">Salesforce</option>
+                    <option value="hubspot">HubSpot</option>
+                    <option value="pipedrive">Pipedrive</option>
+                    <option value="custom">Custom Webhook URL</option>
+                </select>
+            </div>
+            
+            <div class="setting-group" id="crm-webhook-group" style="display: none;">
+                <label for="crm-webhook-url">CRM Webhook URL:</label>
+                <input type="url" id="crm-webhook-url" placeholder="https://your-crm.com/webhook">
+                <p class="help-text">URL to send search results to your CRM system.</p>
+            </div>
+        </div>
+
+        <!-- Search History -->
+        <div class="settings-section">
+            <h3>📋 Search History</h3>
+            <div class="history-buttons">
+                <button id="download-history-btn" class="btn primary compact">Download Search History</button>
+                <button id="clear-history-btn" class="btn secondary compact">Clear Search History</button>
+            </div>
+            <p class="help-text">
+                Download AHJ data for your recent searches or clear your search history.
+            </p>
         </div>
 
         <div class="buttons">
-            <button id="save-btn" class="btn primary">Save Settings</button>
+            <button id="save-btn" class="btn primary">Save All Settings</button>
+            <button id="reset-btn" class="btn secondary">Reset to Defaults</button>
             <button id="cancel-btn" class="btn secondary">Cancel</button>
+        </div>
+
+        <div class="settings-section references-section">
+            <h3>Referenced Websites & Data Sources</h3>
+            <div class="references-grid">
+                <div class="reference-category">
+                    <h4>🏛️ Official Government Sources</h4>
+                    <ul>
+                        <li><a href="https://www.phoenix.gov/pdd" target="_blank">City of Phoenix Planning & Development</a></li>
+                        <li><a href="https://www.houstontx.gov/planning/" target="_blank">City of Houston Planning Department</a></li>
+                        <li><a href="https://dallascityhall.com/departments/sustainabledevelopment/" target="_blank">City of Dallas Development Services</a></li>
+                        <li><a href="https://www.austintexas.gov/department/development-services" target="_blank">City of Austin Development Services</a></li>
+                        <li><a href="https://www.miami.gov/Government/Departments/Building" target="_blank">City of Miami Building Department</a></li>
+                        <li><a href="https://www.lasvegasnevada.gov/Government/Departments/Building-Safety" target="_blank">Las Vegas Building & Safety</a></li>
+                        <li><a href="https://www.cityofhenderson.com/government/departments/development-services" target="_blank">Henderson Development Services</a></li>
+                    </ul>
+                </div>
+                
+                <div class="reference-category">
+                    <h4>🔌 Utility Companies</h4>
+                    <ul>
+                        <li><a href="https://www.aps.com" target="_blank">Arizona Public Service (APS)</a></li>
+                        <li><a href="https://www.srpnet.com" target="_blank">Salt River Project (SRP)</a></li>
+                        <li><a href="https://www.tep.com" target="_blank">Tucson Electric Power (TEP)</a></li>
+                        <li><a href="https://www.centerpointenergy.com" target="_blank">CenterPoint Energy</a></li>
+                        <li><a href="https://www.oncor.com" target="_blank">Oncor Electric Delivery</a></li>
+                        <li><a href="https://austinenergy.com" target="_blank">Austin Energy</a></li>
+                        <li><a href="https://www.cpsenergy.com" target="_blank">CPS Energy</a></li>
+                        <li><a href="https://www.fpl.com" target="_blank">Florida Power & Light (FPL)</a></li>
+                        <li><a href="https://www.nvenergy.com" target="_blank">NV Energy</a></li>
+                    </ul>
+                </div>
+                
+                <div class="reference-category">
+                    <h4>🗺️ Mapping & Geocoding</h4>
+                    <ul>
+                        <li><a href="https://nominatim.openstreetmap.org" target="_blank">OpenStreetMap Nominatim</a></li>
+                        <li><a href="https://www.openstreetmap.org" target="_blank">OpenStreetMap</a></li>
+                    </ul>
+                </div>
+                
+                <div class="reference-category">
+                    <h4>📋 Building Codes & Standards</h4>
+                    <ul>
+                        <li><a href="https://www.iccsafe.org" target="_blank">International Code Council (ICC)</a></li>
+                        <li><a href="https://www.nfpa.org" target="_blank">National Fire Protection Association (NFPA)</a></li>
+                        <li><a href="https://www.dsireusa.org" target="_blank">DSIRE - Incentives Database</a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
 
         <div id="save-message" class="save-message hidden"></div>

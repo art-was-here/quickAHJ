@@ -516,4 +516,383 @@ h3 {
   gap: 10px;
   margin-top: 20px;
   justify-content: center;
+}
+
+/* Settings page specific styles */
+.history-buttons {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.history-buttons .btn {
+  flex: 1;
+  min-width: 150px;
+}
+
+select {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+
+select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(67, 123, 208, 0.2);
+}
+
+.references-section {
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 2px solid var(--border-color);
+}
+
+.references-section h3 {
+  color: var(--text-color);
+  margin-bottom: 20px;
+  font-size: 1.2rem;
+}
+
+.references-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.reference-category {
+  background-color: var(--surface-color);
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+}
+
+.reference-category h4 {
+  color: var(--primary-color);
+  margin-bottom: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.reference-category ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.reference-category li {
+  margin-bottom: 8px;
+}
+
+.reference-category a {
+  color: var(--text-color);
+  text-decoration: none;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  display: block;
+  padding: 4px 0;
+  transition: color 0.2s ease;
+}
+
+.reference-category a:hover {
+  color: var(--primary-color);
+  text-decoration: underline;
+}
+
+.reference-category a:visited {
+  color: var(--text-secondary);
+}
+
+.reference-category a:visited:hover {
+  color: var(--primary-color);
+}
+
+/* Theme-specific adjustments for settings */
+@media (prefers-color-scheme: dark) {
+  .reference-category {
+    background-color: var(--surface-color);
+  }
+  
+  .reference-category a:visited {
+    color: #888;
+  }
+}
+
+/* Theme override classes */
+body.force-light {
+  --bg-color: #ffffff;
+  --surface-color: #f8f9fa;
+  --text-color: #2d3748;
+  --text-secondary: #718096;
+  --primary-color: #4299e1;
+  --primary-hover: #3182ce;
+  --secondary-color: #e2e8f0;
+  --border-color: #e2e8f0;
+  --shadow: rgba(0, 0, 0, 0.1);
+}
+
+body.force-dark {
+  --bg-color: #1a202c;
+  --surface-color: #2d3748;
+  --text-color: #f7fafc;
+  --text-secondary: #a0aec0;
+  --primary-color: #63b3ed;
+  --primary-hover: #4299e1;
+  --secondary-color: #4a5568;
+  --border-color: #4a5568;
+  --shadow: rgba(0, 0, 0, 0.3);
+}
+
+/* Enhanced Settings Styles */
+.setting-group {
+  margin-bottom: 20px;
+}
+
+.setting-group label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 6px;
+  color: var(--text-color);
+}
+
+.setting-group input[type="text"],
+.setting-group input[type="number"],
+.setting-group input[type="url"],
+.setting-group select,
+.setting-group textarea {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-size: 14px;
+  transition: border-color 0.2s ease;
+}
+
+.setting-group input:focus,
+.setting-group select:focus,
+.setting-group textarea:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(66, 153, 225, 0.1);
+}
+
+.setting-group textarea {
+  min-height: 60px;
+  resize: vertical;
+}
+
+.checkbox-group {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.checkbox-group label {
+  display: flex;
+  align-items: center;
+  font-weight: normal;
+  margin-bottom: 0;
+  cursor: pointer;
+}
+
+.checkbox-group input[type="checkbox"] {
+  margin-right: 8px;
+  width: auto;
+}
+
+/* Data Source Priority List */
+.priority-list {
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background-color: var(--surface-color);
+  margin-top: 8px;
+}
+
+.priority-item {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  border-bottom: 1px solid var(--border-color);
+  background-color: var(--bg-color);
+  cursor: move;
+  transition: background-color 0.2s ease;
+}
+
+.priority-item:last-child {
+  border-bottom: none;
+}
+
+.priority-item:hover {
+  background-color: var(--surface-color);
+}
+
+.priority-item.dragging {
+  opacity: 0.5;
+  transform: rotate(2deg);
+}
+
+.drag-handle {
+  color: var(--text-secondary);
+  margin-right: 12px;
+  cursor: grab;
+  user-select: none;
+}
+
+.drag-handle:active {
+  cursor: grabbing;
+}
+
+.source-name {
+  flex: 1;
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+.source-enabled {
+  margin-left: 12px;
+}
+
+/* Settings sections with icons */
+.settings-section h3 {
+  color: var(--text-color);
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Responsive grid for form elements */
+@media (min-width: 600px) {
+  .settings-container {
+    max-width: 800px;
+  }
+  
+  .checkbox-group {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 800px) {
+  .checkbox-group {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Compact button styling */
+.btn.compact {
+  font-size: 13px;
+  padding: 8px 16px;
+}
+
+/* Help text styling */
+.help-text {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-top: 4px;
+  line-height: 1.4;
+}
+
+/* Enhanced button group */
+.buttons {
+  display: flex;
+  gap: 12px;
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-color);
+}
+
+.buttons .btn {
+  flex: 1;
+  min-width: 120px;
+}
+
+/* History buttons in settings */
+.history-buttons {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.history-buttons .btn {
+  flex: 1;
+}
+
+/* Special styling for professional settings */
+.settings-section:has(#company-name) .setting-group {
+  background-color: var(--surface-color);
+  padding: 16px;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+}
+
+/* Technical settings with warning styling */
+.settings-section:has(#debug-mode) {
+  border-left: 4px solid var(--secondary-color);
+  padding-left: 16px;
+}
+
+/* Integration section with special styling */
+.settings-section:has(#calendar-integration) {
+  background: linear-gradient(135deg, var(--surface-color) 0%, var(--bg-color) 100%);
+  border-radius: 8px;
+  padding: 20px;
+  border: 1px solid var(--border-color);
+}
+
+/* Enhanced form validation */
+.setting-group input:invalid {
+  border-color: var(--error-color);
+}
+
+.setting-group input:valid {
+  border-color: var(--success-color);
+}
+
+/* Loading and disabled states */
+.setting-group input:disabled,
+.setting-group select:disabled,
+.setting-group textarea:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background-color: var(--surface-color);
+}
+
+/* Smooth transitions for all interactive elements */
+.priority-item,
+.setting-group input,
+.setting-group select,
+.setting-group textarea,
+.checkbox-group label {
+  transition: all 0.2s ease;
+}
+
+/* Dark theme adjustments for new elements */
+@media (prefers-color-scheme: dark) {
+  .priority-item {
+    border-color: #333;
+  }
+  
+  .settings-section:has(#company-name) .setting-group {
+    background-color: #2a2a2a;
+    border-color: #444;
+  }
+  
+  .settings-section:has(#calendar-integration) {
+    background: linear-gradient(135deg, #2a2a2a 0%, #1e1e1e 100%);
+    border-color: #444;
+  }
 } 
